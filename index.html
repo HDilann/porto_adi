@@ -12,12 +12,12 @@
     />
     <style>
       :root {
-        --ink: #0f1b16;
+        --ink: #113f67;
         --paper: #edead8;
-        --ochre: #e8a33d;
-        --sage: #7fa98c;
+        --ochre: #fcef7f;
+        --sage: #58a0c8;
         --line: rgba(237, 234, 216, 0.14);
-        --ink-soft: #16241d;
+        --ink-soft: #161624;
       }
 
       * {
@@ -70,7 +70,7 @@
         backdrop-filter: blur(6px);
         background: linear-gradient(
           to bottom,
-          rgba(15, 27, 22, 0.85),
+          rgba(15, 20, 27, 0.85),
           transparent
         );
       }
@@ -80,6 +80,7 @@
       }
       nav ul {
         display: flex;
+        align-items: center;
         gap: 32px;
         list-style: none;
       }
@@ -92,6 +93,49 @@
       nav a:hover {
         opacity: 1;
         color: var(--ochre);
+      }
+
+      /* Tombol ganti bahasa */
+      .lang-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        font-weight: 500;
+        padding: 8px 14px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: transparent;
+        color: var(--paper);
+        cursor: pointer;
+        transition:
+          border-color 0.25s ease,
+          color 0.25s ease,
+          transform 0.25s ease;
+      }
+      .lang-btn:hover {
+        border-color: var(--ochre);
+        color: var(--ochre);
+        transform: translateY(-1px);
+      }
+      .lang-btn .flag {
+        font-size: 16px;
+        line-height: 1;
+      }
+      .lang-btn .flag.switching {
+        animation: flagPop 0.4s ease;
+      }
+      @keyframes flagPop {
+        0% {
+          transform: scale(1) rotate(0deg);
+        }
+        40% {
+          transform: scale(1.3) rotate(-8deg);
+        }
+        100% {
+          transform: scale(1) rotate(0deg);
+        }
       }
 
       /* ---------- HERO ---------- */
@@ -140,8 +184,8 @@
 
       .eyebrow {
         font-family: "JetBrains Mono", monospace;
-        font-size: 13px;
-        color: var(--sage);
+        font-size: 15px;
+        color: var(--ochre);
         letter-spacing: 0.12em;
         text-transform: uppercase;
         margin-bottom: 22px;
@@ -300,7 +344,6 @@
         font-size: clamp(1.8rem, 4vw, 3rem);
       }
 
-      /* Section kedua (Software) pakai spasi lebih rapat, tidak lagi elemen "section" duplikat */
       .section-head-2 {
         display: flex;
         align-items: baseline;
@@ -378,7 +421,6 @@
         background: var(--ink-soft);
         border: 1px solid var(--line);
       }
-      /* Varian split: dua gambar berdampingan dalam satu kartu (Tokoooy / Didesino) */
       .work-media.split {
         display: flex;
       }
@@ -390,7 +432,7 @@
       .work-media img {
         width: 100%;
         height: 100%;
-        object-fit: fit; /* diperbaiki dari "fit" yang bukan nilai CSS valid */
+        object-fit: fit;
         filter: grayscale(60%) contrast(1.05);
         transform: scale(1.06);
         opacity: 0;
@@ -453,7 +495,6 @@
         font-weight: 500;
       }
 
-      /* Logo software di marquee kedua */
       .marquee-track.logos {
         gap: 64px;
         animation-duration: 18s;
@@ -496,7 +537,6 @@
         }
       }
 
-      /* Rapatkan jarak antara section Keahlian dan Software */
       #skills {
         padding-bottom: 48px;
       }
@@ -584,10 +624,21 @@
     <nav>
       <div class="logo">ADI / PUTRA</div>
       <ul>
-        <li><a href="#about">Tentang</a></li>
-        <li><a href="#work">Karya</a></li>
-        <li><a href="#skills">Keahlian</a></li>
-        <li><a href="#contact">Kontak</a></li>
+        <li><a href="#about" data-i18n="navAbout">Tentang</a></li>
+        <li><a href="#work" data-i18n="navWork">Karya</a></li>
+        <li><a href="#skills" data-i18n="navSkills">Keahlian</a></li>
+        <li><a href="#contact" data-i18n="navContact">Kontak</a></li>
+        <li>
+          <button
+            id="langToggle"
+            class="lang-btn"
+            type="button"
+            aria-label="Switch language"
+          >
+            <!-- <span class="flag" id="langFlag">🇬🇧</span> -->
+            <span id="langCode">EN</span>
+          </button>
+        </li>
       </ul>
     </nav>
 
@@ -597,6 +648,7 @@
 
       <p
         class="eyebrow"
+        data-i18n="eyebrow"
         style="animation: fadeUp 0.8s ease forwards; animation-delay: 0.2s"
       >
         Graphic Design &amp; Frontend Developer
@@ -604,19 +656,22 @@
 
       <h1 class="hero-title" id="heroTitle"></h1>
 
-      <p class="hero-sub">
+      <p class="hero-sub" data-i18n="heroSub">
         Saya merancang pengalaman digital yang terasa hidup — memadukan detail
         visual yang rapi dengan interaksi yang enak dipakai. Berbasis di Kota
         Bekasi, bekerja dengan klien di mana saja.
       </p>
 
       <div class="hero-cta">
-        <a href="#work" class="btn primary">Lihat Karya</a>
-        <a href="#contact" class="btn ghost">Hubungi Saya</a>
+        <a href="#work" class="btn primary" data-i18n="ctaWork">Lihat Karya</a>
+        <a href="#contact" class="btn ghost" data-i18n="ctaContact"
+          >Hubungi Saya</a
+        >
       </div>
 
       <div class="scroll-hint">
-        <span class="line"></span> GULIR UNTUK JELAJAH
+        <span class="line"></span>
+        <span data-i18n="scrollHint">GULIR UNTUK JELAJAH</span>
       </div>
     </section>
 
@@ -624,12 +679,12 @@
       <div class="section-head reveal">
         <div style="display: grid; gap: 20px">
           <span class="section-num">01</span>
-          <h2 class="section-title">Tentang Saya</h2>
+          <h2 class="section-title" data-i18n="aboutTitle">Tentang Saya</h2>
         </div>
       </div>
       <div class="about-grid">
         <div class="about-text reveal">
-          <p>
+          <p data-i18n="aboutP1">
             Saya <strong>Adi</strong>, Seorang
             <strong>creative developer</strong>
             yang mendedikasikan diri untuk merancang antarmuka visual yang
@@ -638,7 +693,7 @@
             temu yang presisi antara estetika desain dan struktur kode yang
             kokoh.
           </p>
-          <p>
+          <p data-i18n="aboutP2">
             Setiap proyek — mulai dari eksplorasi
             <strong>desain grafis</strong> dan
             <strong>ilustrasi</strong> menggunakan Adobe
@@ -651,8 +706,12 @@
           </p>
         </div>
         <div class="stat-list reveal">
-          <div class="stat-row"><span>Tahun Pengalaman</span><b>1</b></div>
-          <div class="stat-row"><span>Proyek Selesai</span><b>2</b></div>
+          <div class="stat-row">
+            <span data-i18n="statYears">Tahun Pengalaman</span><b>1</b>
+          </div>
+          <div class="stat-row">
+            <span data-i18n="statProjects">Proyek Selesai</span><b>2</b>
+          </div>
         </div>
       </div>
     </section>
@@ -661,7 +720,7 @@
       <div class="section-head reveal">
         <div style="display: grid; gap: 20px">
           <span class="section-num">02</span>
-          <h2 class="section-title">Karya</h2>
+          <h2 class="section-title" data-i18n="workTitle">Karya</h2>
         </div>
       </div>
       <div class="work-grid">
@@ -673,18 +732,20 @@
               rel="noopener"
             >
               <img
-                data-src="image/wow.png"
+                data-src="image/1.webp"
                 alt="Konten Instagram Tokoooy - promo pintu"
               />
               <img
-                data-src="image/ysspsd.png"
+                data-src="image/ysspsd.webp"
                 alt="Konten Instagram Tokoooy - Isa Al Masih"
               />
             </a>
           </div>
           <div class="work-meta">
             <h3>Instagram @Tokoooy</h3>
-            <span class="work-tag">Retail · Training Account</span>
+            <span class="work-tag" data-i18n="tagTokoooy"
+              >Retail · Training Account</span
+            >
           </div>
         </div>
 
@@ -696,30 +757,34 @@
               rel="noopener"
             >
               <img
-                data-src="image/frc.png"
+                data-src="image/frc.webp"
                 alt="Konten Instagram Didesino - World Cup"
               />
               <img
-                data-src="image/ada.png"
+                data-src="image/ga.webp"
                 alt="Konten Instagram Didesino - story selection"
               />
             </a>
           </div>
           <div class="work-meta">
             <h3>Instagram @Didesino</h3>
-            <span class="work-tag">Design · Training Account</span>
+            <span class="work-tag" data-i18n="tagDidesino"
+              >Design · Training Account</span
+            >
           </div>
         </div>
 
         <div class="work-card reveal">
           <div class="work-media">
             <a href="https://tripsafu.com" target="_blank" rel="noopener">
-              <img data-src="image/PP.png" alt="Website Travel PT Bullnium" />
+              <img data-src="image/PP.webp" alt="Website Travel PT Bullnium" />
             </a>
           </div>
           <div class="work-meta">
             <h3>PT Bullnium</h3>
-            <span class="work-tag">Website Travel · 2023</span>
+            <span class="work-tag" data-i18n="tagBullnium"
+              >Website Travel · 2023</span
+            >
           </div>
         </div>
 
@@ -727,14 +792,16 @@
           <div class="work-media">
             <a href="https://htrip.com" target="_blank" rel="noopener">
               <img
-                data-src="image/woi.png"
+                data-src="image/woi.webp"
                 alt="Website Travel PT Bangun Kreatif Abadi"
               />
             </a>
           </div>
           <div class="work-meta">
             <h3>PT Bangun Kreatif Abadi</h3>
-            <span class="work-tag">Website Travel · 2024</span>
+            <span class="work-tag" data-i18n="tagBangun"
+              >Website Travel · 2024</span
+            >
           </div>
         </div>
       </div>
@@ -744,7 +811,7 @@
       <div class="section-head reveal">
         <div style="display: grid; gap: 20px">
           <span class="section-num">03</span>
-          <h2 class="section-title">Keahlian</h2>
+          <h2 class="section-title" data-i18n="skillsTitle">Keahlian</h2>
         </div>
       </div>
       <div class="marquee reveal">
@@ -763,7 +830,7 @@
 
     <section id="software">
       <div class="section-head-2 reveal">
-        <h2 class="section-title-2">Software</h2>
+        <h2 class="section-title-2" data-i18n="softwareTitle">Software</h2>
       </div>
       <div class="marquee reveal">
         <div class="marquee-track logos">
@@ -779,16 +846,12 @@
             ></span
           >
           <span class="logo-item"
-            ><img
-              src="https://cdn.simpleicons.org/nextdotjs/EDEAD8"
-              alt="Next.js"
-            /><span>Next.js</span></span
+            ><img src="image/vsc.webp" alt="VScode" /><span>VScode</span></span
           >
           <span class="logo-item"
-            ><img
-              src="https://cdn.simpleicons.org/tailwindcss/38BDF8"
-              alt="Tailwind CSS"
-            /><span>Tailwind CSS</span></span
+            ><img src="image/Capcut-icon.png" alt="Capcut" /><span
+              >Capcut</span
+            ></span
           >
           <span class="logo-item"
             ><img
@@ -811,16 +874,12 @@
             ></span
           >
           <span class="logo-item"
-            ><img
-              src="https://cdn.simpleicons.org/nextdotjs/EDEAD8"
-              alt="Next.js"
-            /><span>Next.js</span></span
+            ><img src="image/vsc.webp" alt="VScode" /><span>VScode</span></span
           >
           <span class="logo-item"
-            ><img
-              src="https://cdn.simpleicons.org/tailwindcss/38BDF8"
-              alt="Tailwind CSS"
-            /><span>Tailwind CSS</span></span
+            ><img src="image/Capcut-icon.png" alt="Capcut" /><span
+              >Capcut</span
+            ></span
           >
           <span class="logo-item"
             ><img
@@ -843,26 +902,27 @@
             ></span
           >
           <span class="logo-item"
-            ><img
-              src="https://cdn.simpleicons.org/nextdotjs/EDEAD8"
-              alt="Next.js"
-            /><span>Next.js</span></span
+            ><img src="image/vsc.webp" alt="VScode" /><span>VScode</span></span
           >
         </div>
       </div>
     </section>
 
     <section id="contact" class="contact reveal">
-      <h2>Mari ciptakan sesuatu <span class="accent">yang berkesan.</span></h2>
+      <h2 data-i18n="contactTitle">
+        Mari ciptakan sesuatu <span class="accent">yang berkesan.</span>
+      </h2>
       <a class="contact-email" href="mailto:adisptra.id@gmail.com"
         >adisptra.id@gmail.com</a
       >
-      <span class="contact-phone">WhatsApp - 085863205696</span>
+      <span class="contact-phone" data-i18n="contactPhone"
+        >WhatsApp - 085863205696</span
+      >
     </section>
 
     <footer>
       <span>© 2026 Adi Saputra</span>
-      <span>Kota Bekasi, Indonesia</span>
+      <span data-i18n="footerLocation">Kota Bekasi, Indonesia</span>
     </footer>
 
     <script>
@@ -914,6 +974,105 @@
         { threshold: 0.1, rootMargin: "0px 0px -60px 0px" },
       );
       lazyImages.forEach((img) => imgObserver.observe(img));
+
+      // ---------- Switch Bahasa (ID default, bisa ganti ke EN) ----------
+      const translations = {
+        id: {
+          navAbout: "Tentang",
+          navWork: "Karya",
+          navSkills: "Keahlian",
+          navContact: "Kontak",
+          eyebrow: "Graphic Design &amp; Frontend Developer",
+          heroSub:
+            "Saya merancang pengalaman digital yang terasa hidup — memadukan detail visual yang rapi dengan interaksi yang enak dipakai. Berbasis di Kota Bekasi, bekerja dengan klien di mana saja.",
+          ctaWork: "Lihat Karya",
+          ctaContact: "Hubungi Saya",
+          scrollHint: "GULIR UNTUK JELAJAH",
+          aboutTitle: "Tentang Saya",
+          aboutP1:
+            "Saya <strong>Adi</strong>, Seorang <strong>creative developer</strong> yang mendedikasikan diri untuk merancang antarmuka visual yang memikat sekaligus menuliskan kode yang menghidupkannya. Saya percaya bahwa pengalaman digital yang luar biasa selalu lahir dari titik temu yang presisi antara estetika desain dan struktur kode yang kokoh.",
+          aboutP2:
+            "Setiap proyek — mulai dari eksplorasi <strong>desain grafis</strong> dan <strong>ilustrasi</strong> menggunakan Adobe <strong>Photoshop</strong> serta <strong>Illustrator</strong>, penyusunan aset visual kreatif, hingga pengembangan antarmuka web menggunakan <strong>Next.js</strong> dan Tailwind CSS — saya perlakukan sebagai ruang eksperimen untuk mencoba komposisi warna, tipografi, dan interaksi baru tanpa mengorbankan kejelasan fungsionalitas yang dibutuhkan.",
+          statYears: "Tahun Pengalaman",
+          statProjects: "Proyek Selesai",
+          workTitle: "Karya",
+          tagTokoooy: "Retail · Training Account",
+          tagDidesino: "Design · Training Account",
+          tagBullnium: "Website Travel · 2023",
+          tagBangun: "Website Travel · 2024",
+          skillsTitle: "Keahlian",
+          softwareTitle: "Software",
+          contactTitle:
+            'Mari ciptakan sesuatu <span class="accent">yang berkesan.</span>',
+          contactPhone: "WhatsApp - 085863205696",
+          footerLocation: "Kota Bekasi, Indonesia",
+        },
+        en: {
+          navAbout: "About",
+          navWork: "Work",
+          navSkills: "Skills",
+          navContact: "Contact",
+          eyebrow: "Graphic Designer &amp; Frontend Developer",
+          heroSub:
+            "I design digital experiences that feel alive — blending clean visual detail with interactions that just feel right. Based in Bekasi City, working with clients anywhere.",
+          ctaWork: "View Work",
+          ctaContact: "Contact Me",
+          scrollHint: "SCROLL TO EXPLORE",
+          aboutTitle: "About Me",
+          aboutP1:
+            "I'm <strong>Adi</strong>, a <strong>creative developer</strong> dedicated to designing visual interfaces that captivate while writing the code that brings them to life. I believe great digital experiences are always born from the precise intersection of design aesthetics and solid code structure.",
+          aboutP2:
+            "Every project — from exploring <strong>graphic design</strong> and <strong>illustration</strong> with Adobe <strong>Photoshop</strong> and <strong>Illustrator</strong>, to crafting creative visual assets, to building web interfaces with <strong>Next.js</strong> and Tailwind CSS — I treat as a playground to experiment with new color compositions, typography, and interactions, without compromising the functionality that's needed.",
+          statYears: "Years of Experience",
+          statProjects: "Completed Projects",
+          workTitle: "Work",
+          tagTokoooy: "Retail · Training Account",
+          tagDidesino: "Design · Training Account",
+          tagBullnium: "Travel Website · 2023",
+          tagBangun: "Travel Website · 2024",
+          skillsTitle: "Skills",
+          softwareTitle: "Software",
+          contactTitle:
+            'Let\'s create something <span class="accent">memorable.</span>',
+          contactPhone: "WhatsApp - 085863205696",
+          footerLocation: "Bekasi City, Indonesia",
+        },
+      };
+
+      let currentLang = "id";
+      // const langFlag = document.getElementById("langFlag");
+      const langCode = document.getElementById("langCode");
+      const langToggle = document.getElementById("langToggle");
+      const i18nEls = document.querySelectorAll("[data-i18n]");
+
+      function applyLang(lang) {
+        i18nEls.forEach((el) => {
+          const key = el.getAttribute("data-i18n");
+          if (translations[lang][key] !== undefined) {
+            el.innerHTML = translations[lang][key];
+          }
+        });
+        // Tombol menampilkan bendera & kode bahasa TUJUAN (yang akan diaktifkan jika diklik)
+        if (lang === "id") {
+          // langFlag.textContent = "🇬🇧";
+          langCode.textContent = "EN";
+          document.documentElement.lang = "id";
+        } else {
+          // langFlag.textContent = "🇮🇩";
+          langCode.textContent = "ID";
+          document.documentElement.lang = "en";
+        }
+      }
+
+      langToggle.addEventListener("click", () => {
+        currentLang = currentLang === "id" ? "en" : "id";
+        applyLang(currentLang);
+        langFlag.classList.remove("switching");
+        void langFlag.offsetWidth; // restart animasi
+        langFlag.classList.add("switching");
+      });
+
+      applyLang(currentLang);
     </script>
   </body>
 </html>
