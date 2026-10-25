@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>404 - Portofolio Adi Saputra</title>
+    <title>Error - Portofolio Adi Saputra</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -12,38 +12,337 @@
     />
     <link rel="icon" href="image/iconn.webp" />
     <style>
+      :root {
+        --ink: #113f67;
+        --paper: #edead8;
+        --ochre: #fcef7f;
+        --sage: #58a0c8;
+        --line: rgba(237, 234, 216, 0.14);
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
       body {
+        min-height: 100vh;
+        background: var(--ink);
+        color: var(--paper);
+        font-family: "Work Sans", sans-serif;
+        overflow-x: hidden;
+      }
+      ::selection {
+        background: var(--ochre);
+        color: var(--ink);
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .grain {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 999;
+        opacity: 0.05;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
+
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 28px 6vw;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 13px;
+        letter-spacing: 0.04em;
+      }
+      nav .logo {
+        font-weight: 500;
+        color: var(--ochre);
+      }
+      .lang-btn {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        font-weight: 500;
+        padding: 8px 14px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: transparent;
+        color: var(--paper);
+        cursor: pointer;
+        transition: all 0.25s ease;
+      }
+      .lang-btn:hover {
+        border-color: var(--ochre);
+        color: var(--ochre);
+        transform: translateY(-1px);
+      }
+
+      .wrap {
+        position: relative;
+        overflow: hidden;
+        min-height: 100vh;
+        padding: 120px 6vw 90px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 100vh;
-        background-color: #f8f9fa;
-        font-family: Arial, sans-serif;
         text-align: center;
-        margin: 0;
+        background: radial-gradient(
+          ellipse at 50% 100%,
+          rgba(88, 160, 200, 0.4),
+          transparent 62%
+        );
+      }
+      .blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(70px);
+        opacity: 0.3;
+        animation: drift 14s ease-in-out infinite;
+      }
+      .blob-1 {
+        width: 340px;
+        height: 340px;
+        background: var(--sage);
+        top: 8%;
+        right: 8%;
+      }
+      .blob-2 {
+        width: 240px;
+        height: 240px;
+        background: var(--ochre);
+        bottom: 8%;
+        left: 6%;
+        animation-delay: -6s;
+      }
+      @keyframes drift {
+        0%,
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+        50% {
+          transform: translate(-30px, 24px) scale(1.08);
+        }
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .text {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .tag,
+      .code,
+      h1,
+      .desc,
+      .actions {
+        opacity: 0;
+        animation: fadeUp 0.8s ease forwards;
+      }
+      .tag {
+        display: inline-block;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 13px;
+        padding: 8px 18px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        margin-bottom: 20px;
+        animation-delay: 0.1s;
+      }
+      .code {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: clamp(6rem, 22vw, 16rem);
+        line-height: 0.9;
+        letter-spacing: -0.03em;
+        animation-delay: 0.25s;
+      }
+      .code .zero {
+        color: var(--ochre);
+        font-style: italic;
+        font-weight: 500;
       }
       h1 {
-        font-size: 4rem;
-        margin: 0;
-        color: #343a40;
+        margin-top: 24px;
+        font-family: "Fraunces", serif;
+        font-weight: 600;
+        font-size: clamp(1.6rem, 3.4vw, 2.6rem);
+        line-height: 1.15;
+        animation-delay: 0.4s;
       }
-      p {
-        color: #6c757d;
-        margin-bottom: 20px;
+      h1 .accent {
+        color: var(--ochre);
+        font-style: italic;
+        font-weight: 500;
       }
-      a {
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
+      .desc {
+        margin-top: 18px;
+        max-width: 480px;
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: rgba(237, 234, 216, 0.78);
+        animation-delay: 0.55s;
+      }
+      .actions {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 36px;
+        animation-delay: 0.7s;
+      }
+      .btn {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 13px;
+        padding: 14px 26px;
+        border-radius: 999px;
+        border: 1px solid var(--ochre);
+        transition: all 0.3s ease;
+      }
+      .btn.primary {
+        background: var(--ochre);
+        color: var(--ink);
+        font-weight: 500;
+      }
+      .btn.primary:hover {
+        background: var(--paper);
+        border-color: var(--paper);
+      }
+      .btn.ghost:hover {
+        background: rgba(252, 239, 127, 0.12);
+      }
+
+      footer {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: space-between;
+        padding: 24px 6vw;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        color: rgba(237, 234, 216, 0.5);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
       }
     </style>
   </head>
   <body>
-    <h1>404</h1>
-    <p>Waduh, Ibu/Bapak HRD halaman yang kamu cari tidak ada nih.</p>
-    <a href="index.html">Kembali ke Beranda</a>
+    <div class="grain"></div>
+
+    <nav>
+      <a class="logo" href="index.html">ADI / DILAN</a>
+      <button
+        id="langToggle"
+        class="lang-btn"
+        type="button"
+        aria-label="Switch language"
+      >
+        <span id="langCode">EN</span>
+      </button>
+    </nav>
+
+    <main class="wrap">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+
+      <div class="text">
+        <span class="tag" data-i18n="tag">Error · Halaman tidak ditemukan</span>
+        <div class="code" aria-label="404">4<span class="zero">0</span>4</div>
+        <h1 data-i18n="title">
+          Waduh, kamu <span class="accent">nyasar</span> nih.
+        </h1>
+        <p class="desc" data-i18n="desc">
+          Halaman yang kamu cari tidak ada atau sudah dipindahkan. Tenang,
+          Ibu/Bapak HRD tidak perlu panik, portofolionya masih aman kok.
+        </p>
+        <div class="actions">
+          <a href="index.html" class="btn primary" data-i18n="home"
+            >Kembali ke Beranda</a
+          >
+          <a href="experience.html" class="btn ghost" data-i18n="exp"
+            >Lihat Pengalaman</a
+          >
+        </div>
+      </div>
+
+      <footer>
+        <span>© 2026 Adi Saputra</span>
+        <span data-i18n="loc">Kota Bekasi, Indonesia</span>
+      </footer>
+    </main>
+
+    <script>
+      const translations = {
+        id: {
+          tag: "Error · Halaman tidak ditemukan",
+          title: 'Waduh, kamu <span class="accent">nyasar</span> nih.',
+          desc: "Halaman yang kamu cari tidak ada atau sudah dipindahkan. Tenang, Ibu/Bapak HRD tidak perlu panik, portofolionya masih aman kok.",
+          home: "Kembali ke Beranda",
+          exp: "Lihat Pengalaman",
+          loc: "Kota Bekasi, Indonesia",
+        },
+        en: {
+          tag: "Error · Page not found",
+          title: 'Oops, looks like you got <span class="accent">lost.</span>',
+          desc: "The page you're looking for doesn't exist or has been moved. Don't worry, the portfolio is still safe and sound.",
+          home: "Back to Home",
+          exp: "View Experience",
+          loc: "Bekasi City, Indonesia",
+        },
+      };
+
+      let lang = "id";
+      try {
+        const saved = localStorage.getItem("lang");
+        if (saved === "id" || saved === "en") lang = saved;
+      } catch (e) {}
+
+      const els = document.querySelectorAll("[data-i18n]");
+      const code = document.getElementById("langCode");
+      function apply() {
+        els.forEach((el) => {
+          const t = translations[lang][el.dataset.i18n];
+          if (t !== undefined) el.innerHTML = t;
+        });
+        code.textContent = lang === "id" ? "EN" : "ID";
+        document.documentElement.lang = lang;
+      }
+      document.getElementById("langToggle").addEventListener("click", () => {
+        lang = lang === "id" ? "en" : "id";
+        try {
+          localStorage.setItem("lang", lang);
+        } catch (e) {}
+        apply();
+      });
+      apply();
+    </script>
   </body>
 </html>
