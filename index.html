@@ -893,7 +893,7 @@
         :root {
           --sheet-r: 32px;
         }
-        nav ul {
+        nav ul li:not(:last-child) {
           display: none;
         }
         .hero {
@@ -933,6 +933,45 @@
           animation-duration: 0.01ms !important;
           animation-iteration-count: 1 !important;
           transition-duration: 0.01ms !important;
+        }
+      }
+
+      .hello {
+        display: inline-block;
+        padding: 8px 28px;
+        border: 1.5px solid var(--paper);
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 1rem;
+        background: rgba(10, 42, 71, 0.35);
+        backdrop-filter: blur(6px);
+        cursor: default;
+        transition:
+          transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+          background 0.25s ease,
+          color 0.25s ease,
+          border-color 0.25s ease,
+          box-shadow 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      @media (hover: hover) {
+        .hello:hover {
+          background: var(--ochre);
+          color: var(--ink);
+          border-color: var(--ochre);
+          box-shadow: 4px 5px 0 var(--paper);
+          animation: wiggle 0.7s ease-in-out infinite;
+        }
+      }
+      .hello:active {
+        transform: scale(0.94) rotate(0deg);
+      }
+      @keyframes wiggle {
+        0%,
+        100% {
+          transform: rotate(-6deg) scale(1.12);
+        }
+        50% {
+          transform: rotate(5deg) scale(1.16);
         }
       }
     </style>
@@ -1210,6 +1249,7 @@
 
           <a
             href="experience.html"
+            data-i18n="seeMore"
             style="
               font-family: &quot;JetBrains Mono&quot;, monospace;
               font-size: 13px;
@@ -1505,7 +1545,14 @@
         },
       };
 
+      // let currentLang = "id";
+
       let currentLang = "id";
+      try {
+        const saved = localStorage.getItem("lang");
+        if (saved === "id" || saved === "en") currentLang = saved;
+      } catch (e) {}
+
       const langCode = document.getElementById("langCode");
       const langToggle = document.getElementById("langToggle");
       const i18nEls = document.querySelectorAll("[data-i18n]");
@@ -1521,11 +1568,29 @@
         document.documentElement.lang = lang;
       }
 
+      function syncLang() {
+        try {
+          const saved = localStorage.getItem("lang");
+          if ((saved === "id" || saved === "en") && saved !== currentLang) {
+            currentLang = saved;
+            applyLang(currentLang);
+          }
+        } catch (e) {}
+      }
+      window.addEventListener("pageshow", syncLang);
+      window.addEventListener("storage", syncLang);
+      // langToggle.addEventListener("click", () => {
+      //   currentLang = currentLang === "id" ? "en" : "id";
+      //   applyLang(currentLang);
+      // });
+
       langToggle.addEventListener("click", () => {
         currentLang = currentLang === "id" ? "en" : "id";
+        try {
+          localStorage.setItem("lang", currentLang);
+        } catch (e) {}
         applyLang(currentLang);
       });
-
       applyLang(currentLang);
     </script>
   </body>

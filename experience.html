@@ -305,6 +305,9 @@
           transform: rotate(360deg);
         }
       }
+      .hero-fig {
+        --bounce-dur: 4s; /* satu durasi untuk gambar dan bayangan */
+      }
       .hero-fig img {
         position: relative;
         z-index: 2;
@@ -314,20 +317,28 @@
         object-fit: contain;
         transform-origin: 50% 100%;
         filter: drop-shadow(0 20px 24px rgba(0, 0, 0, 0.35));
-        animation: bounceLoop 4s infinite;
+        animation: bounceLoop var(--bounce-dur) infinite;
       }
       @keyframes bounceLoop {
         0% {
           transform: translateY(0) rotate(-3deg) scale(1.04, 0.94);
-          animation-timing-function: cubic-bezier(0.2, 0.7, 0.4, 1);
+          animation-timing-function: cubic-bezier(
+            0.2,
+            0.7,
+            0.4,
+            1
+          ); /* naik: cepat lalu melambat */
         }
         45% {
           transform: translateY(-35px) rotate(3deg) scale(0.99, 1.03);
-          animation-timing-function: cubic-bezier(0.6, 0, 0.9, 0.4);
+          animation-timing-function: cubic-bezier(
+            0.6,
+            0,
+            0.9,
+            0.4
+          ); /* turun: melambat lalu menghentak */
         }
-        90% {
-          transform: translateY(0) rotate(-3deg) scale(1.04, 0.94);
-        }
+        90%,
         100% {
           transform: translateY(0) rotate(-3deg) scale(1.04, 0.94);
         }
@@ -343,18 +354,36 @@
         border-radius: 50%;
         background: rgba(0, 0, 0, 0.35);
         filter: blur(8px);
-        animation: shadowLoop 1.8s infinite;
+        animation: shadowLoop var(--bounce-dur) infinite;
       }
       @keyframes shadowLoop {
-        0%,
-        90%,
-        100% {
-          transform: scale(1);
-          opacity: 0.55;
+        0% {
+          transform: scale(
+            1.08,
+            1
+          ); /* mendarat: sedikit melebar, ikut gepeng */
+          opacity: 0.6;
+          animation-timing-function: cubic-bezier(
+            0.2,
+            0.7,
+            0.4,
+            1
+          ); /* sama dengan naik */
         }
         45% {
-          transform: scale(0.6);
+          transform: scale(0.6); /* di puncak: kecil dan pudar */
           opacity: 0.25;
+          animation-timing-function: cubic-bezier(
+            0.6,
+            0,
+            0.9,
+            0.4
+          ); /* sama dengan turun */
+        }
+        90%,
+        100% {
+          transform: scale(1.08, 1);
+          opacity: 0.6;
         }
       }
 
@@ -1167,6 +1196,18 @@
         const saved = localStorage.getItem("lang");
         if (saved === "id" || saved === "en") currentLang = saved;
       } catch (e) {}
+
+      function syncLang() {
+        try {
+          const saved = localStorage.getItem("lang");
+          if ((saved === "id" || saved === "en") && saved !== lang) {
+            lang = saved;
+            apply();
+          }
+        } catch (e) {}
+      }
+      window.addEventListener("pageshow", syncLang);
+      window.addEventListener("storage", syncLang);
 
       const langCode = document.getElementById("langCode");
       const i18nEls = document.querySelectorAll("[data-i18n]");

@@ -325,6 +325,18 @@
         if (saved === "id" || saved === "en") lang = saved;
       } catch (e) {}
 
+      function syncLang() {
+        try {
+          const saved = localStorage.getItem("lang");
+          if ((saved === "id" || saved === "en") && saved !== lang) {
+            lang = saved;
+            apply();
+          }
+        } catch (e) {}
+      }
+      window.addEventListener("pageshow", syncLang);
+      window.addEventListener("storage", syncLang);
+
       const els = document.querySelectorAll("[data-i18n]");
       const code = document.getElementById("langCode");
       function apply() {
